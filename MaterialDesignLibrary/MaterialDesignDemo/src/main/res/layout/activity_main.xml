@@ -131,7 +131,7 @@
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="#FFF"
-        android:clickable="true" >
+        android:clickable="true">
 
         <ImageView
             android:layout_width="40dp"
