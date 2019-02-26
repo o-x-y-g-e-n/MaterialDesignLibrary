@@ -15,6 +15,8 @@ import com.gc.materialdesigndemo.temp.AutomationCore;
 import com.gc.materialdesigndemo.temp.ViewGetter;
 import com.gc.materialdesigndemo.temp.WithXPath;
 import com.gc.materialdesigndemo.ui.MainActivity;
+import com.gc.materialdesigndemo.ui.xpath.Main;
+import com.gc.materialdesigndemo.ui.xpath.XpathParser;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -34,6 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.uiautomator.By.text;
 import static android.support.test.uiautomator.Until.findObject;
 import static com.gc.materialdesigndemo.temp.WithXPath.withXPath;
+import static com.gc.materialdesigndemo.ui.xpath.Main.demo;
 
 @RunWith(AndroidJUnit4.class)
 public class HomeActivityTest {
@@ -47,7 +50,7 @@ public class HomeActivityTest {
         mDevice = UiDevice.getInstance(getInstrumentation());
     }
 
-    public void checkStatus(String str1,String str2){
+    public void checkStatus(String str1, String str2) {
         try {
             mDevice.findObject(new UiSelector().childSelector(new UiSelector().text(str1))).click();
             onView(withChild(withText(str2))).check(matches(isDisplayed()));
@@ -65,8 +68,8 @@ public class HomeActivityTest {
 //            onView(withChild(withText("Flat Button"))).check(matches(isDisplayed()));
 
             try {
-                onView((withXPath(new ViewGetter().getRootView(),"//android.widget.TextView[@text='Flat Button']"))).check(matches(isDisplayed()));
-                onView(withXPath(new ViewGetter().getRootView(),"//android.widget.RelativeLayout[@id='com.gc.materialdesigndemo:id/buttonflat']")).check(matches(isDisplayed()));
+                onView((withXPath(new ViewGetter().getRootView(), "//android.widget.TextView[@text='Flat Button']"))).check(matches(isDisplayed()));
+                onView(withXPath(new ViewGetter().getRootView(), "//android.widget.RelativeLayout[@id='com.gc.materialdesigndemo:id/buttonflat']")).check(matches(isDisplayed()));
             } catch (AppiumException e) {
                 e.printStackTrace();
             }
@@ -80,14 +83,20 @@ public class HomeActivityTest {
     public void openWidgetsTabTest() throws UiObjectNotFoundException, AppiumException {
         AutomationCore.getInstance().getUiDevice().findObject(new UiSelector().childSelector(new UiSelector().text("Widgets"))).click();
 //        onView(withChild(withText("SnackBar"))).check(matches(isDisplayed()));
-        onView(withChild(withXPath(new ViewGetter().getRootView(),"//android.widget.TextView[@text='SnackBar']"))).check(matches(isDisplayed()));
+        onView(withChild(withXPath(new ViewGetter().getRootView(), "//android.widget.TextView[@text='SnackBar']"))).check(matches(isDisplayed()));
 //        AutomationCore.getInstance().getUiDevice().findObject(new UiSelector().childSelector(new UiSelector().text("SHOW SNACKBAR"))).click();onView(withChild(withText("YES"))).perform(click());
         AutomationCore.getInstance().getUiDevice().findObject(new UiSelector().childSelector(new UiSelector().text("SHOW SNACKBAR"))).click();
-        onView(withChild(withXPath(new ViewGetter().getRootView(),"//android.widget.TextView[@text='YES']"))).perform(click());
+        onView(withChild(withXPath(new ViewGetter().getRootView(), "//android.widget.TextView[@text='YES']"))).perform(click());
 //        AutomationCore.getInstance().getUiDevice().findObject(new UiSelector().childSelector(new UiSelector().text("SHOW DIALOG"))).click();
 //        AutomationCore.getInstance().getUiDevice().findObject(new UiSelector().childSelector(new UiSelector().text("ACCEPT"))).click();
 
     }
 
+    @Test
+    public void helloWorldTest() {
+            //AutomationCore.getInstance().getUiDevice().findObject(new UiSelector().childSelector(new UiSelector().text("Buttons"))).click();
+            demo("//*[@resource-id='com.gc.materialdesigndemo:id/itemButtons']");
+            demo("//*[@resource-id='com.gc.materialdesigndemo:id/buttonflat']");
 
+    }
 }
